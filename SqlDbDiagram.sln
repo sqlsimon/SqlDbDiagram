@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlDbDiagram", "SqlDbDiagram\SqlDbDiagram.csproj", "{A7B871EB-A29A-4FA7-8E50-8A6DD83192E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlDacFxDiagram", "SqlDacFxDiagram\SqlDacFxDiagram.csproj", "{F95EFA87-8291-4AD4-B8DE-8C489188C4FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DacFxStronglyTypedModel", "DacFxStronglyTypedModel\DacFxStronglyTypedModel.csproj", "{832ECF86-C071-4628-A8B7-2529D8A7BDBC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{A7B871EB-A29A-4FA7-8E50-8A6DD83192E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7B871EB-A29A-4FA7-8E50-8A6DD83192E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7B871EB-A29A-4FA7-8E50-8A6DD83192E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F95EFA87-8291-4AD4-B8DE-8C489188C4FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F95EFA87-8291-4AD4-B8DE-8C489188C4FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F95EFA87-8291-4AD4-B8DE-8C489188C4FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F95EFA87-8291-4AD4-B8DE-8C489188C4FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{832ECF86-C071-4628-A8B7-2529D8A7BDBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{832ECF86-C071-4628-A8B7-2529D8A7BDBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{832ECF86-C071-4628-A8B7-2529D8A7BDBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{832ECF86-C071-4628-A8B7-2529D8A7BDBC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

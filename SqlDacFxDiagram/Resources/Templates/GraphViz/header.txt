@@ -1,0 +1,10 @@
+﻿digraph G { 
+                        //  
+                        // Defaults
+                        //  
+ 
+                        // Box for entities
+                        node [shape=none, margin=0]
+ 
+                        // One-to-many relation (from one, to many)
+                        edge [arrowhead=crow, arrowtail=none, dir=both]"
