@@ -15,7 +15,7 @@ namespace hgr.SqlServerTools.SqlDbDiagram
     class Options
     {
         [Option('d', "dacpac", Required = true,
-          HelpText = "dacpac file to generate diagram for")]
+          HelpText = "dacpac file to generate diagram for ")]
         public string InputFile { get; set; }
 
         [Option('f', "format", DefaultValue = "GraphViz",
