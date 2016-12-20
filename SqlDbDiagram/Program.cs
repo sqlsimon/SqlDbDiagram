@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using hgr.SqlServerTools.SqlDbDiagram;
 using CommandLine;
 using CommandLine.Text;
+using System.IO;
 
 
 
@@ -32,7 +33,7 @@ namespace hgr.SqlServerTools.SqlDbDiagram
 
         [Option('c', "configGVizPath", DefaultValue = @"C:\Program Files (x86)\Graphviz2.38\bin",
         HelpText = "the path to the GraphViz bin directory")]
-        public bool GVizPath { get; set; }
+        public string GVizPath { get; set; }
 
         [ParserState]
         public IParserState LastParserState { get; set; }
@@ -57,7 +58,9 @@ namespace hgr.SqlServerTools.SqlDbDiagram
 
                  if (options.InputFile != null)
                  {
-                        // check that the file exists and throw a file not found exception
+                    // check that the file exists and throw a file not found exception
+                    if (File.Exists(options.InputFile))
+                    {
 
                         if (options.Format == "GraphViz")
                         {
@@ -69,23 +72,39 @@ namespace hgr.SqlServerTools.SqlDbDiagram
                         }
 
                         if (options.Format != null)
-                        { 
-                            var diag = new SqlDacFxDiagram(options.InputFile,format);
+                        {
+                            var diag = new SqlDacFxDiagram(options.InputFile, format);
                         }
                         else
                         {
                             var diag = new SqlDacFxDiagram(options.InputFile);
                         }
 
+                        // SPECIFY GRAPHVIZ OUTPUT FORMAT, PDF, PNG, SVG
 
-                        // check the output file flag. If its not specified then default to same path and filenme 
-                        // as the input file
+                        // EMBED HYPERLINKS IN SVG TO ALLOW TO BE EMBEDDED IN HTML OUTPUT
 
-                        // if the generate option is specified and the format is graphviz and we can find the 
-                        // graphviz executable then create a png file from graphviz
 
-                        // we should do the same for plant uml too
+                        if (options.OutputFile == null)
+                        {
+                            options.OutputFile = Path.GetFileNameWithoutExtension(options.InputFile) + ".svg";
+                         }
+
+                        if (options.Generate && !File.Exists(options.GVizPath))
+                        {
+                            string msg = String.Format("Unable to find Graphviz binaries in {0}", options.GVizPath);
+                            throw new FileNotFoundException(msg);
+                        }
                     }
+                    else
+                    {
+                        string s = String.Format("The file '{0}' does not exist, please check that the file and path name are correct", options.InputFile);
+                        throw new FileNotFoundException(@"[data.txt not in c:\temp directory]");
+                    }
+
+     
+                    // we should do the same for plant uml too
+                }
             }
 
                 
