@@ -71,6 +71,23 @@ namespace hgr.SqlServerTools
         }
 
         /// <summary>
+        /// Checks to see if there are any foreign keys defined on user objects. We can use this in calling app
+        /// to flag a message that the diagram may be generated without any relationships as there are no
+        /// foreign keys to infer them from
+        /// </summary>
+        public bool CheckModel()
+        {
+            var rels = model.GetObjects<TSqlForeignKeyConstraint>(DacQueryScopes.UserDefined);
+            var strOut = new StringBuilder();
+
+            if (rels.Count() == 0)
+                return false;
+            else
+                return true;
+        }
+
+
+        /// <summary>
         /// Removes square bracket qualifiers from object names
         /// </summary>
         /// <param name="inputString"></param>
@@ -269,6 +286,7 @@ namespace hgr.SqlServerTools
 
             }
         }
+
 
         /// <summary>
         /// Outputs the relationships using the foreign keys in the model

@@ -35,6 +35,10 @@ namespace hgr.SqlServerTools.SqlDbDiagram
         HelpText = "the path to the GraphViz bin directory")]
         public string GVizPath { get; set; }
 
+        [Option('c', "configPlantUMLPath", DefaultValue = @"C:\Program Files (x86)\PlantUML",
+        HelpText = "the path to the PlantUML jar file")]
+        public string PlantUMLPath { get; set; }
+
         [ParserState]
         public IParserState LastParserState { get; set; }
 
@@ -52,6 +56,7 @@ namespace hgr.SqlServerTools.SqlDbDiagram
         {
 
             var options = new Options();
+            SqlDacFxDiagram diag;
             if (CommandLine.Parser.Default.ParseArguments(args, options))
             {
                  DiagramFormat format = DiagramFormat.GraphViz; 
@@ -73,16 +78,20 @@ namespace hgr.SqlServerTools.SqlDbDiagram
 
                         if (options.Format != null)
                         {
-                            var diag = new SqlDacFxDiagram(options.InputFile, format);
+                            diag = new SqlDacFxDiagram(options.InputFile, format);
+                        
                         }
                         else
                         {
-                            var diag = new SqlDacFxDiagram(options.InputFile);
+                            diag = new SqlDacFxDiagram(options.InputFile);
                         }
+
+                        if (diag.CheckModel())
+                            System.Console.WriteLine("WARNING: No foreign keys were found in the dac model. Relationships cannot be modelled. ");
 
                         // SPECIFY GRAPHVIZ OUTPUT FORMAT, PDF, PNG, SVG
 
-                        // EMBED HYPERLINKS IN SVG TO ALLOW TO BE EMBEDDED IN HTML OUTPUT
+                            // EMBED HYPERLINKS IN SVG TO ALLOW TO BE EMBEDDED IN HTML OUTPUT
 
 
                         if (options.OutputFile == null)
@@ -90,10 +99,17 @@ namespace hgr.SqlServerTools.SqlDbDiagram
                             options.OutputFile = Path.GetFileNameWithoutExtension(options.InputFile) + ".svg";
                          }
 
-                        if (options.Generate && !File.Exists(options.GVizPath))
+                        if (options.Generate && format == DiagramFormat.GraphViz && !File.Exists(options.GVizPath + @"\dot.exe"))
                         {
                             string msg = String.Format("Unable to find Graphviz binaries in {0}", options.GVizPath);
                             throw new FileNotFoundException(msg);
+                        }
+
+                        if (options.Generate && format == DiagramFormat.PlantUML && !File.Exists(options.PlantUMLPath + @"\plantuml.jar"))
+                        {
+                            string msg = String.Format("Unable to find PlantUML jar file in {0}", options.PlantUMLPath);
+                            throw new FileNotFoundException(msg);
+
                         }
                     }
                     else
