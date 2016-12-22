@@ -8,7 +8,8 @@ using CommandLine;
 using CommandLine.Text;
 using System.IO;
 
-
+//TODO: create a test project for the DacFx diagram class that tests various dacpacs
+//TODO: go and get adventureworks dacpac + other sql server publically available dacpacs
 
 namespace hgr.SqlServerTools.SqlDbDiagram
 {
@@ -35,9 +36,13 @@ namespace hgr.SqlServerTools.SqlDbDiagram
         HelpText = "the path to the GraphViz bin directory")]
         public string GVizPath { get; set; }
 
-        [Option('c', "configPlantUMLPath", DefaultValue = @"C:\Program Files (x86)\PlantUML",
+        [Option('p', "configPlantUMLPath", DefaultValue = @"C:\Program Files (x86)\PlantUML",
         HelpText = "the path to the PlantUML jar file")]
         public string PlantUMLPath { get; set; }
+
+        //TODO: Need an option for GraphViz output format, PDF, PNG, SVG
+
+        //TODO Need to check for Java being in the path
 
         [ParserState]
         public IParserState LastParserState { get; set; }
